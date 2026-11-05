@@ -1,0 +1,13 @@
+// Static-assets-only Worker: Cloudflare just serves the prebuilt dist/ folder.
+// Having this file stops `wrangler deploy` from auto-adding the Astro Cloudflare adapter.
+{
+  "name": "haejoy-site",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    // /games/heartopia serves games/heartopia.html; /games/heartopia.html redirects to the clean URL
+    "html_handling": "drop-trailing-slash",
+    // unknown URLs get dist/404.html with a real 404 status
+    "not_found_handling": "404-page",
+  },
+}
