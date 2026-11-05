@@ -5,6 +5,7 @@
     "name": "Heartopia",
     "tag": "cozy",
     "label": "Cozy life",
+    "cover": "../assets/games/heartopia.webp",
     "blurb": "A slow-living game about decorating, gardening, and strolling around a small town.",
     "seoDescription": "Heartopia Shorts from Haejoy: cozy decorating, gardening and slow evening walks in a small-town life sim, cut into calm clips for a tea break.",
     "developer": "XD",
@@ -20,6 +21,7 @@
     "name": "Petit Planet",
     "tag": "cozy",
     "label": "Cozy life",
+    "cover": "../assets/games/petit-planet.jpg",
     "blurb": "HoYoverse's cosmic life sim: grow your own tiny planet, farm, decorate, and visit friends in space.",
     "seoDescription": "Petit Planet Shorts from Haejoy: farming, decorating and visiting friends in HoYoverse's cozy space life sim, growing one tiny planet at a time.",
     "developer": "HoYoverse",
@@ -35,6 +37,7 @@
     "name": "Loftia",
     "tag": "cozy",
     "label": "Cozy",
+    "cover": "../assets/games/loftia.webp",
     "blurb": "One of the laid-back games on the channel's to-play list.",
     "seoDescription": "Loftia Shorts from Haejoy: first impressions and small, satisfying moments from a relaxed cozy game, made for slow afternoons and quiet nights.",
     "description": [
@@ -48,6 +51,7 @@
     "name": "NTE",
     "tag": "open",
     "label": "Open world",
+    "cover": "../assets/games/nte.webp",
     "blurb": "Neverness to Everness. Exploring an urban fantasy city.",
     "seoDescription": "NTE (Neverness to Everness) Shorts from Haejoy: sightseeing and chill exploration in an anime-style urban fantasy open-world city, in quick clips.",
     "developer": "Hotta Studio",
@@ -63,6 +67,7 @@
     "name": "Ananta",
     "tag": "open",
     "label": "Open world",
+    "cover": "../assets/games/ananta.jpg",
     "blurb": "An anime-style open world with a busy city to explore.",
     "seoDescription": "Ananta Shorts from Haejoy: first impressions and relaxed exploration of a busy anime-style open-world city, cut into short, cozy gameplay clips.",
     "developer": "NetEase Games",
@@ -78,6 +83,7 @@
     "name": "Sword of Justice",
     "tag": "open",
     "label": "Open world",
+    "cover": "../assets/games/sword-of-justice.jpg",
     "blurb": "A wuxia-flavored open-world RPG.",
     "seoDescription": "Sword of Justice Shorts from Haejoy: scenic spots, outfits and calm sightseeing in a wuxia-flavored open-world RPG, made to watch on a slow day.",
     "developer": "NetEase Games",
@@ -91,8 +97,9 @@
     "id": "roblox",
     "order": 7,
     "name": "Roblox",
-    "tag": "roblox",
+    "tag": "social",
     "label": "Play together",
+    "cover": "../assets/games/roblox.avif",
     "blurb": "Player-made worlds, from dream houses to games with friends.",
     "seoDescription": "Roblox Shorts from Haejoy: cozy dream-house builds, role-play worlds and silly moments playing with friends, cut into short and chill gameplay clips.",
     "developer": "Roblox Corporation",
@@ -101,6 +108,22 @@
       "Roblox is a huge collection of player-made worlds, from house-building and role-play games to silly obstacle courses played with friends.",
       "On the channel, Roblox Shorts cover cozy builds like dream houses, plus the fun moments that happen when you hop into a game together.",
       "There is always something new to try, which keeps this shelf changing every week."
+    ]
+  },
+  {
+    "id": "zepeto",
+    "order": 8,
+    "name": "ZEPETO",
+    "tag": "social",
+    "label": "Avatar & social",
+    "cover": "../assets/games/zepeto.jpeg",
+    "blurb": "A 3D avatar world: dress up, strike a pose, and hang out in player-made spaces with friends.",
+    "seoDescription": "ZEPETO Shorts from Haejoy: cute 3D avatar outfits, photo poses and hangouts in player-made worlds, cut into short, chill social gameplay clips.",
+    "developer": "NAVER Z",
+    "description": [
+      "ZEPETO is a 3D avatar app and social world where you create a character, dress it up in endless outfits, and hang out in spaces made by other players.",
+      "On the channel, ZEPETO Shorts are all about style and small social moments: new outfits, cute poses and photo spots, and exploring worlds with friends.",
+      "If you love dress-up and getting your character to look just right, this is a fun shelf to browse."
     ]
   }
 ]

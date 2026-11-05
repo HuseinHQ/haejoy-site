@@ -9,7 +9,7 @@ const tones = {
   default: "#F2F8FF",
   cozy: "#FFEDB0",
   open: "#C9E8FA",
-  roblox: "#CBF0E6",
+  social: "#CBF0E6",
 };
 
 export const getStaticPaths = (async () => {

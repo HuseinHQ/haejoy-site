@@ -14,13 +14,13 @@ const filters = [
   ["all", "All"],
   ["cozy", "Cozy"],
   ["open", "Open world"],
-  ["roblox", "Roblox"],
+  ["social", "Social"],
 ];
 ---
 
 <div data-game-shelf>
-  <!-- Chips need JS, so they stay hidden until the script runs -->
-  <div class="chips" role="group" aria-label="Filter games" hidden>
+  <!-- Chips need JS: their space is reserved (no layout shift) but they stay invisible until the script runs -->
+  <div class="chips" role="group" aria-label="Filter games">
     {filters.map(([key, label], i) => (
       <button
         class="chip"
@@ -40,6 +40,9 @@ const filters = [
 </div>
 
 <style>
+  .chips:not(.ready) {
+    visibility: hidden;
+  }
   .chips {
     display: flex;
     flex-wrap: wrap;
@@ -61,7 +64,7 @@ const filters = [
   }
   .games {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
     gap: 22px;
     padding-bottom: 18px;
   }
@@ -73,7 +76,7 @@ const filters = [
     .forEach((shelf) => {
       const chips = shelf.querySelector<HTMLElement>(".chips");
       if (!chips) return;
-      chips.hidden = false;
+      chips.classList.add("ready");
       chips.addEventListener("click", (e) => {
         const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(
           ".chip",

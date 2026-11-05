@@ -1,6 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
 import { YouTube } from "@astro-community/astro-embed-youtube";
+import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import JsonLd from "../../components/JsonLd.astro";
@@ -80,16 +81,27 @@ const jsonLd = [
 >
   <JsonLd slot="head" data={jsonLd} />
   <section class:list={["game-hero", `g-${data.tag}`]}>
-    <div class="wrap">
-      <Breadcrumbs
-        items={[
-          { name: "Games", href: "/games" },
-          { name: data.name, href: `/games/${id}` },
-        ]}
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <Breadcrumbs
+          items={[
+            { name: "Games", href: "/games" },
+            { name: data.name, href: `/games/${id}` },
+          ]}
+        />
+        <span class="label">{data.label}</span>
+        <h1>{data.name}</h1>
+        <p class="lede">{data.blurb}</p>
+      </div>
+      <Image
+        class="hero-cover"
+        src={data.cover}
+        alt={`${data.name} cover art`}
+        widths={[240, 360, 560]}
+        sizes="(max-width: 820px) 180px, 280px"
+        loading="eager"
+        fetchpriority="high"
       />
-      <span class="label">{data.label}</span>
-      <h1>{data.name}</h1>
-      <p class="lede">{data.blurb}</p>
     </div>
   </section>
 
@@ -180,13 +192,43 @@ const jsonLd = [
   .game-hero .wrap {
     padding-block: 40px 48px;
   }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: center;
+  }
+  .hero-text {
+    min-width: 0;
+  }
+  .hero-cover {
+    width: 280px;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center 20%;
+    border: 2px solid var(--edge);
+    border-radius: 20px;
+    box-shadow: 6px 6px 0 var(--edge);
+    transform: rotate(2deg);
+    background: var(--bg2);
+  }
+  @media (max-width: 820px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .hero-cover {
+      width: 180px;
+    }
+  }
   .g-cozy {
     background: var(--t-sun);
   }
   .g-open {
     background: var(--t-sky);
   }
-  .g-roblox {
+  .g-social {
     background: var(--t-mint);
   }
   .label {

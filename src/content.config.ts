@@ -6,19 +6,21 @@ export const tones = ["sky", "sun", "mint", "coral", "teal"] as const;
 
 const games = defineCollection({
   loader: file("src/content/games.json"),
-  schema: z.object({
-    id: z.string(), // slug, e.g. "petit-planet"
-    name: z.string(),
-    tag: z.enum(["cozy", "open", "roblox"]),
-    label: z.string(), // "Cozy life", "Open world"...
-    blurb: z.string(), // 1 sentence for cards
-    seoDescription: z.string().min(140).max(160), // meta description for /games/[slug]
-    description: z.array(z.string()).min(2).max(4), // paragraphs for /games/[slug]
-    developer: z.string().optional(),
-    officialUrl: z.url().optional(),
-    playlistUrl: z.url().optional(),
-    order: z.number(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      id: z.string(), // slug, e.g. "petit-planet"
+      name: z.string(),
+      tag: z.enum(["cozy", "open", "social"]),
+      cover: image(), // portrait cover art in src/assets/games/, path relative to games.json
+      label: z.string(), // "Cozy life", "Open world"...
+      blurb: z.string(), // 1 sentence for cards
+      seoDescription: z.string().min(140).max(160), // meta description for /games/[slug]
+      description: z.array(z.string()).min(2).max(4), // paragraphs for /games/[slug]
+      developer: z.string().optional(),
+      officialUrl: z.url().optional(),
+      playlistUrl: z.url().optional(),
+      order: z.number(),
+    }),
 });
 
 const shorts = defineCollection({
