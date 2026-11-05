@@ -1,0 +1,56 @@
+---
+import JsonLd from "./JsonLd.astro";
+
+export interface Props {
+  items: { name: string; href: string }[]; // Home is added automatically; last item = current page
+}
+const items = [{ name: "Home", href: "/" }, ...Astro.props.items];
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((it, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: it.name,
+    item: new URL(it.href, Astro.site).href,
+  })),
+};
+---
+
+<JsonLd data={jsonLd} />
+<nav class="crumbs" aria-label="Breadcrumb">
+  <ol>
+    {items.map((it, i) =>
+      i === items.length - 1 ? (
+        <li aria-current="page">{it.name}</li>
+      ) : (
+        <li>
+          <a href={it.href}>{it.name}</a>
+        </li>
+      ),
+    )}
+  </ol>
+</nav>
+
+<style>
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 18px;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-note);
+    font-size: 0.92rem;
+    color: var(--ink2);
+  }
+  li + li::before {
+    content: "/";
+    margin-right: 6px;
+    opacity: 0.6;
+  }
+  a {
+    color: var(--accent);
+    text-underline-offset: 3px;
+  }
+</style>

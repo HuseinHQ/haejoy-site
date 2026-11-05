@@ -1,0 +1,23 @@
+---
+import { getCollection } from "astro:content";
+import LinkCard from "./LinkCard.astro";
+
+const socials = (await getCollection("socials")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<section class="band" id="community">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">the front door</span>
+      <h2>Come say hi</h2>
+      <p>I read the YouTube comments. The other spaces are on the way.</p>
+    </div>
+    <div class="links">
+      {socials.map((s) => (
+        <LinkCard link={s} />
+      ))}
+    </div>
+  </div>
+</section>

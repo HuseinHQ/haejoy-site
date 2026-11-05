@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content";
+import ShortCard from "./ShortCard.astro";
+import { shortsUrl } from "../lib/site";
+
+export interface Props {
+  game?: string; // only this game's Shorts (game pages)
+  limit?: number;
+}
+const { game, limit = 12 } = Astro.props;
+
+const gameNames = new Map(
+  (await getCollection("games")).map((g) => [g.id, g.data.name]),
+);
+const shorts = (
+  await getCollection("shorts", (s) => !game || s.data.game.id === game)
+)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, limit);
+---
+
+{shorts.length > 0 && (
+  <div
+    class="shorts-scroll"
+    tabindex="0"
+    role="region"
+    aria-label="Shorts, scroll sideways"
+  >
+    {shorts.map((s, i) => (
+      <ShortCard
+        short={s}
+        gameName={gameNames.get(s.data.game.id) ?? ""}
+        index={i}
+      />
+    ))}
+  </div>
+)}
+<div class="shorts-foot">
+  <a class="btn small" href={shortsUrl} target="_blank" rel="noopener">
+    See all Shorts
+  </a>
+</div>
+
+<style>
+  .shorts-scroll {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    padding: 6px 4px 22px;
+    scroll-snap-type: x proximity;
+  }
+  .shorts-foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    margin-top: 8px;
+  }
+</style>

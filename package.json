@@ -1,0 +1,33 @@
+{
+  "name": "haejoy-site",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check",
+    "format": "prettier --write .",
+    "check:seo": "node scripts/check-seo.mjs"
+  },
+  "dependencies": {
+    "@astro-community/astro-embed-youtube": "^0.5.10",
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource/dynapuff": "^5.3.0",
+    "@fontsource/nunito": "^5.3.0",
+    "@fontsource/shantell-sans": "^5.3.0",
+    "astro": "^7.4.5",
+    "satori": "^0.63.2",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.2",
+    "typescript": "^6.0.3"
+  }
+}

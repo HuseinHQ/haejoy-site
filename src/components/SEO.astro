@@ -1,0 +1,64 @@
+---
+export interface Props {
+  title?: string; // omitted on home
+  description: string;
+  image?: string; // path under /public or absolute URL, 1200x630
+  type?: "website" | "article" | "video.other";
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  image = "/og/default.png",
+  type = "website",
+  noindex = false,
+} = Astro.props;
+
+const fullTitle = title ? `${title} – HAEJOY` : "HAEJOY · Cozy Gaming Shorts";
+const canonical = new URL(
+  Astro.url.pathname.replace(/(\/index)?(\.html)?\/?$/, "") || "/",
+  Astro.site,
+).href;
+const ogImage = new URL(image, Astro.site).href;
+
+if (
+  import.meta.env.DEV &&
+  (description.length < 140 || description.length > 160)
+) {
+  console.warn(
+    `[SEO] ${Astro.url.pathname}: description is ${description.length} chars (aim for 140–160)`,
+  );
+}
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex" />}
+
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:url" content={canonical} />
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content="HAEJOY" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<meta
+  name="theme-color"
+  content="#f2f8ff"
+  media="(prefers-color-scheme: light)"
+/>
+<meta
+  name="theme-color"
+  content="#0d1a2a"
+  media="(prefers-color-scheme: dark)"
+/>
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />

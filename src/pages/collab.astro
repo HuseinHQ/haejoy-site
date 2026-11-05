@@ -1,0 +1,172 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Collab from "../components/Collab.astro";
+import { site } from "../lib/site";
+
+const games = (await getCollection("games")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const platforms = (await getCollection("socials"))
+  .filter((s) => s.data.url)
+  .sort((a, b) => a.data.order - b.data.order);
+const glance = [
+  ["Format", "Vertical Shorts, under a minute"],
+  ["Main platform", "YouTube Shorts"],
+  [
+    "Also on",
+    platforms
+      .filter((p) => p.id !== "youtube")
+      .map((p) => p.data.name)
+      .join(", ") || "—",
+  ],
+  ["Tone", "Cozy, chill, friendly"],
+];
+---
+
+<BaseLayout
+  title="Collab & Media Kit"
+  description="Work with Haejoy: cozy gameplay Shorts, first impressions and creator-code collabs for cozy and anime open-world games. Formats, audience and contact."
+>
+  <section class="kit-hero">
+    <div class="wrap">
+      <Breadcrumbs items={[{ name: "Collab", href: "/collab" }]} />
+      <span class="eyebrow">media kit</span>
+      <h1>Bring your game to a cozy corner of YouTube</h1>
+      <p class="lede">
+        Haejoy makes short, warm gameplay videos about cozy life sims and
+        anime-style open worlds. If your game feels good to slow down in, it
+        will probably feel at home here.
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href="#collab">
+          Get in touch
+        </a>
+        <a class="btn" href={site.youtube} target="_blank" rel="noopener">
+          Watch the channel
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap kit-grid">
+      <div class="card">
+        <h2>At a glance</h2>
+        <dl>
+          {glance.map(([k, v]) => (
+            <div>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+      <div class="card">
+        <h2>Who's watching</h2>
+        <p>
+          Viewers who love cozy games: decorating, farming, slow exploring, and
+          new anime-style releases. They come for a calm, friendly look at a
+          game, not hype, which makes a feature feel like a recommendation from
+          a friend.
+        </p>
+        <h3>Games already on the channel</h3>
+        <ul class="tags">
+          {games.map((g) => (
+            <li>
+              <a href={`/games/${g.id}`}>{g.data.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Collab kitLink={false} />
+</BaseLayout>
+
+<style>
+  .kit-hero .wrap {
+    padding-block: 40px 56px;
+  }
+  h1 {
+    font-size: clamp(2.1rem, 5.6vw, 3.6rem);
+    max-width: 18ch;
+    margin-bottom: 16px;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--ink2);
+    max-width: 52ch;
+    margin-bottom: 26px;
+  }
+  .kit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  .card {
+    border: 2px solid var(--edge);
+    border-radius: 22px;
+    background: var(--surface);
+    box-shadow: 4px 4px 0 var(--edge);
+    padding: 22px;
+    display: grid;
+    gap: 14px;
+    min-width: 0;
+  }
+  .card h2 {
+    font-size: 1.5rem;
+  }
+  .card h3 {
+    font-size: 1.05rem;
+    margin-top: 4px;
+  }
+  .card p {
+    color: var(--ink2);
+  }
+  dl {
+    margin: 0;
+    display: grid;
+    gap: 12px;
+  }
+  dt {
+    font-family: var(--f-note);
+    font-size: 0.82rem;
+    color: var(--ink2);
+  }
+  dd {
+    margin: 0;
+    font-family: var(--f-display);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .tags a {
+    display: inline-block;
+    border: 2px solid var(--edge);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    background: var(--t-sky);
+  }
+  .tags a:hover {
+    background: var(--t-sun);
+  }
+  @media (max-width: 820px) {
+    .kit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

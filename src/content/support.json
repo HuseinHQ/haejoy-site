@@ -1,0 +1,47 @@
+[
+  {
+    "id": "saweria",
+    "order": 1,
+    "name": "Saweria",
+    "tag": "Indonesia",
+    "description": "Tip via QRIS, GoPay, OVO, DANA, or ShopeePay.",
+    "url": "https://saweria.co/Supjoy",
+    "tone": "sun"
+  },
+  {
+    "id": "trakteer",
+    "order": 2,
+    "name": "Trakteer",
+    "tag": "Indonesia",
+    "description": "Buy me a treat, with e-wallet or bank transfer.",
+    "url": "",
+    "tone": "coral"
+  },
+  {
+    "id": "sociabuzz",
+    "order": 3,
+    "name": "Sociabuzz",
+    "tag": "Indonesia",
+    "description": "Tips and supporter perks in one place.",
+    "url": "https://sociabuzz.com/haejoy/give",
+    "tone": "sky"
+  },
+  {
+    "id": "kofi",
+    "order": 4,
+    "name": "Ko-fi",
+    "tag": "Worldwide",
+    "description": "For friends outside Indonesia, by card or PayPal.",
+    "url": "https://ko-fi.com/hjoy",
+    "tone": "mint"
+  },
+  {
+    "id": "yt-membership",
+    "order": 5,
+    "name": "YouTube Membership",
+    "tag": "Monthly",
+    "description": "Join the channel for badges and members-only perks.",
+    "url": "",
+    "tone": "teal"
+  }
+]

@@ -1,0 +1,110 @@
+/* Design tokens, ported 1:1 from prototype/haejoy-prototype.html */
+:root {
+  /* color */
+  --bg: #f2f8ff;
+  --bg2: #e0effb;
+  --surface: #ffffff;
+  --ink: #132f47;
+  --ink2: #46667f;
+  --edge: #132f47;
+  --accent: #126a9c; /* prototype #1679b0, darkened to reach 4.5:1 on every light tint */
+  --sun: #ffc83a;
+  --on-sun: #132f47;
+  --nav: #f2f8ff;
+  --t-sky: #c9e8fa;
+  --t-sun: #ffedb0;
+  --t-mint: #cbf0e6;
+  --t-coral: #ffd6cc;
+  --t-teal: #bdebee;
+  --spark1: #ffc83a;
+  --spark2: #5fb8e8;
+  /* mascot + scene */
+  --sky1: #9fd3f5;
+  --sky2: #fff1c4;
+  --glow: #ffe27a;
+  --wood: #e8c08f;
+  --leaf: #5db58c;
+  --pot: #f09a7e;
+  --mug: #ffffff;
+  --hoodie: #ffce4a;
+  --hair: #2fa6b8;
+  --skin: #ffe3d3;
+  --blush: #ff9a9a;
+  --hp: #1679b0;
+  --white: #ffffff;
+  /* type */
+  --f-display: "DynaPuff", "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --f-body: "Nunito", "Segoe UI", system-ui, sans-serif;
+  --f-note: "Shantell Sans", "Comic Sans MS", "Segoe Print", cursive;
+  color-scheme: light;
+}
+
+/* Dark values live twice: once for the OS preference, once for the manual toggle. Keep them in sync. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1a2a;
+    --bg2: #13243a;
+    --surface: #182d46;
+    --ink: #eaf4ff;
+    --ink2: #a9c1d6;
+    --edge: #5e86aa;
+    --accent: #63c6f2;
+    --sun: #ffd45e;
+    --on-sun: #17202b;
+    --nav: #0d1a2a;
+    --t-sky: #1e4363;
+    --t-sun: #4a4020;
+    --t-mint: #1d4840;
+    --t-coral: #4d3030;
+    --t-teal: #1b4650;
+    --spark1: #ffd45e;
+    --spark2: #63c6f2;
+    --sky1: #14315a;
+    --sky2: #2f4a78;
+    --glow: #ffe9a0;
+    --wood: #7a5a3c;
+    --leaf: #45a07a;
+    --pot: #b06a52;
+    --mug: #eaf4ff;
+    --hoodie: #e8b53a;
+    --hair: #3bb4c6;
+    --skin: #ffd9c6;
+    --blush: #ff9a9a;
+    --hp: #63c6f2;
+    --white: #ffffff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1a2a;
+  --bg2: #13243a;
+  --surface: #182d46;
+  --ink: #eaf4ff;
+  --ink2: #a9c1d6;
+  --edge: #5e86aa;
+  --accent: #63c6f2;
+  --sun: #ffd45e;
+  --on-sun: #17202b;
+  --nav: #0d1a2a;
+  --t-sky: #1e4363;
+  --t-sun: #4a4020;
+  --t-mint: #1d4840;
+  --t-coral: #4d3030;
+  --t-teal: #1b4650;
+  --spark1: #ffd45e;
+  --spark2: #63c6f2;
+  --sky1: #14315a;
+  --sky2: #2f4a78;
+  --glow: #ffe9a0;
+  --wood: #7a5a3c;
+  --leaf: #45a07a;
+  --pot: #b06a52;
+  --mug: #eaf4ff;
+  --hoodie: #e8b53a;
+  --hair: #3bb4c6;
+  --skin: #ffd9c6;
+  --blush: #ff9a9a;
+  --hp: #63c6f2;
+  --white: #ffffff;
+  color-scheme: dark;
+}

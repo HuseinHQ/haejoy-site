@@ -1,0 +1,208 @@
+---
+import { getCollection } from "astro:content";
+import { site } from "../lib/site";
+
+const dayOrder = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+const week = (await getCollection("schedule")).sort(
+  (a, b) => dayOrder.indexOf(a.id) - dayOrder.indexOf(b.id),
+);
+const games = (await getCollection("games")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<section id="corner">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">the memo board</span>
+      <h2>Cozy corner</h2>
+      <p>
+        When new Shorts come out, and a spot to tell me which game you want to
+        see next.
+      </p>
+    </div>
+    <div class="corner">
+      <div class="board">
+        <h3>
+          This week{" "}
+          {site.scheduleIsSample && <span class="sample">sample schedule</span>}
+        </h3>
+        <p>Yellow days are upload days.</p>
+        <ul class="week">
+          {week.map((d) => (
+            <li class:list={["day", { up: d.data.upload }]}>
+              <b>{d.id.charAt(0).toUpperCase() + d.id.slice(1)}</b>
+              <span>{d.data.label}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="board" data-wish data-youtube={site.youtube}>
+        <h3>What should I play next?</h3>
+        <p>Tap a game. Your pick is saved on this device only.</p>
+        <div class="wish" role="group" aria-label="Pick a game">
+          {games.map((g) => (
+            <button type="button" data-game={g.data.name} aria-pressed="false">
+              {g.data.name}
+            </button>
+          ))}
+        </div>
+        <p class="wish-out" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .corner {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 28px;
+    align-items: start;
+  }
+  .board {
+    border: 2px solid var(--edge);
+    border-radius: 22px;
+    background: var(--surface);
+    box-shadow: 4px 4px 0 var(--edge);
+    padding: 22px;
+    min-width: 0;
+  }
+  .board h3 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .board > p {
+    color: var(--ink2);
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+  }
+  .week {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .day {
+    border: 2px solid var(--edge);
+    border-radius: 14px;
+    padding: 10px 4px;
+    text-align: center;
+    background: var(--bg);
+    min-width: 0;
+  }
+  .day b {
+    display: block;
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .day span {
+    display: block;
+    font-size: 0.74rem;
+    color: var(--ink2);
+    margin-top: 2px;
+    overflow-wrap: anywhere;
+  }
+  .day.up {
+    background: var(--sun);
+  }
+  .day.up b,
+  .day.up span {
+    color: var(--on-sun);
+  }
+  .wish {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .wish button {
+    border: 2px dashed var(--edge);
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.93rem;
+  }
+  .wish button[aria-pressed="true"] {
+    border-style: solid;
+    background: var(--accent);
+    color: var(--white);
+  }
+  :global(:root[data-theme="dark"]) .wish button[aria-pressed="true"] {
+    color: var(--on-sun);
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .wish button[aria-pressed="true"] {
+      color: var(--on-sun);
+    }
+  }
+  .wish-out {
+    margin-top: 16px;
+    font-family: var(--f-note);
+    font-size: 0.92rem;
+    color: var(--ink2);
+    min-height: 2.6em;
+  }
+  .wish-out :global(a) {
+    font-weight: 700;
+  }
+  @media (max-width: 860px) {
+    .corner {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .week {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>
+
+<script>
+  const box = document.querySelector<HTMLElement>("[data-wish]");
+  if (box) {
+    const out = box.querySelector<HTMLElement>(".wish-out")!;
+    const buttons =
+      box.querySelectorAll<HTMLButtonElement>("button[data-game]");
+    const show = (name: string | null) => {
+      buttons.forEach((b) =>
+        b.setAttribute("aria-pressed", String(b.dataset.game === name)),
+      );
+      out.replaceChildren();
+      if (!name) return;
+      const link = Object.assign(document.createElement("a"), {
+        href: box.dataset.youtube,
+        target: "_blank",
+        rel: "noopener",
+        textContent: "YouTube comments",
+      });
+      out.append(
+        `Noted: ${name}. To make sure Haejoy sees it, drop it in the `,
+        link,
+        " too.",
+      );
+    };
+    box.addEventListener("click", (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLButtonElement>(
+        "button[data-game]",
+      );
+      if (!b) return;
+      try {
+        localStorage.setItem("haejoy-wish", b.dataset.game ?? "");
+      } catch {}
+      show(b.dataset.game ?? null);
+    });
+    let saved: string | null = null;
+    try {
+      saved = localStorage.getItem("haejoy-wish");
+    } catch {}
+    show(saved);
+  }
+</script>

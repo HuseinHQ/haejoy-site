@@ -1,0 +1,106 @@
+[
+  {
+    "id": "heartopia",
+    "order": 1,
+    "name": "Heartopia",
+    "tag": "cozy",
+    "label": "Cozy life",
+    "blurb": "A slow-living game about decorating, gardening, and strolling around a small town.",
+    "seoDescription": "Heartopia Shorts from Haejoy: cozy decorating, gardening and slow evening walks in a small-town life sim, cut into calm clips for a tea break.",
+    "developer": "XD",
+    "description": [
+      "Heartopia is a cozy life sim built around small, gentle routines: tending a garden, decorating a home room by room, and wandering a little town where nothing is in a hurry.",
+      "It is the kind of game that fits the channel perfectly. A Heartopia Short is usually one quiet moment, like a new furniture layout, an evening walk, or a garden finally coming together, cut down to something you can watch with a cup of tea.",
+      "If you like slow-paced building and decorating games, these Shorts are a good place to start."
+    ]
+  },
+  {
+    "id": "petit-planet",
+    "order": 2,
+    "name": "Petit Planet",
+    "tag": "cozy",
+    "label": "Cozy life",
+    "blurb": "HoYoverse's cosmic life sim: grow your own tiny planet, farm, decorate, and visit friends in space.",
+    "seoDescription": "Petit Planet Shorts from Haejoy: farming, decorating and visiting friends in HoYoverse's cozy space life sim, growing one tiny planet at a time.",
+    "developer": "HoYoverse",
+    "description": [
+      "Petit Planet is a cosmic life sim from HoYoverse where you look after your own tiny planet: farming, decorating, and slowly turning a small rock in space into a home.",
+      "On the channel, Petit Planet Shorts follow that progress in bite-sized pieces, from the first patch of crops to visiting friends' planets and showing off new builds.",
+      "It mixes the soft, anime-style look of HoYoverse games with a calm life-sim loop, which makes it one of the coziest worlds on the shelf."
+    ]
+  },
+  {
+    "id": "loftia",
+    "order": 3,
+    "name": "Loftia",
+    "tag": "cozy",
+    "label": "Cozy",
+    "blurb": "One of the laid-back games on the channel's to-play list.",
+    "seoDescription": "Loftia Shorts from Haejoy: first impressions and small, satisfying moments from a relaxed cozy game, made for slow afternoons and quiet nights.",
+    "description": [
+      "Loftia is one of the laid-back games on the channel's to-play list, picked for its relaxed pace and soft, welcoming look.",
+      "Shorts for Loftia will show first impressions and the small, satisfying moments that make cozy games worth slowing down for. Check back as more videos land."
+    ]
+  },
+  {
+    "id": "nte",
+    "order": 4,
+    "name": "NTE",
+    "tag": "open",
+    "label": "Open world",
+    "blurb": "Neverness to Everness. Exploring an urban fantasy city.",
+    "seoDescription": "NTE (Neverness to Everness) Shorts from Haejoy: sightseeing and chill exploration in an anime-style urban fantasy open-world city, in quick clips.",
+    "developer": "Hotta Studio",
+    "description": [
+      "NTE, short for Neverness to Everness, is an anime-style open-world game set in an urban fantasy city full of strange happenings hidden in everyday streets.",
+      "Haejoy's NTE Shorts lean into the sightseeing side: wandering the city, finding pretty corners, and sharing the moments that make an open world feel lived in.",
+      "If you enjoy exploring big anime cities at your own pace, this is the shelf to browse."
+    ]
+  },
+  {
+    "id": "ananta",
+    "order": 5,
+    "name": "Ananta",
+    "tag": "open",
+    "label": "Open world",
+    "blurb": "An anime-style open world with a busy city to explore.",
+    "seoDescription": "Ananta Shorts from Haejoy: first impressions and relaxed exploration of a busy anime-style open-world city, cut into short, cozy gameplay clips.",
+    "developer": "NetEase Games",
+    "description": [
+      "Ananta is an anime-style open-world game set in a busy, colorful city that invites you to explore every street and rooftop.",
+      "The channel covers Ananta with first impressions and exploration Shorts, focusing on the fun of discovering a new city rather than min-maxing it.",
+      "Expect quick, relaxed looks at what makes the world fun to wander around."
+    ]
+  },
+  {
+    "id": "sword-of-justice",
+    "order": 6,
+    "name": "Sword of Justice",
+    "tag": "open",
+    "label": "Open world",
+    "blurb": "A wuxia-flavored open-world RPG.",
+    "seoDescription": "Sword of Justice Shorts from Haejoy: scenic spots, outfits and calm sightseeing in a wuxia-flavored open-world RPG, made to watch on a slow day.",
+    "developer": "NetEase Games",
+    "description": [
+      "Sword of Justice is a wuxia-flavored open-world RPG with sweeping landscapes, traditional architecture, and plenty of places to simply stand and look around.",
+      "Haejoy's Sword of Justice Shorts are mostly sightseeing: scenic spots, outfits, and calm moments between the action.",
+      "A good pick if you like your open worlds beautiful and a little slower."
+    ]
+  },
+  {
+    "id": "roblox",
+    "order": 7,
+    "name": "Roblox",
+    "tag": "roblox",
+    "label": "Play together",
+    "blurb": "Player-made worlds, from dream houses to games with friends.",
+    "seoDescription": "Roblox Shorts from Haejoy: cozy dream-house builds, role-play worlds and silly moments playing with friends, cut into short and chill gameplay clips.",
+    "developer": "Roblox Corporation",
+    "officialUrl": "https://www.roblox.com",
+    "description": [
+      "Roblox is a huge collection of player-made worlds, from house-building and role-play games to silly obstacle courses played with friends.",
+      "On the channel, Roblox Shorts cover cozy builds like dream houses, plus the fun moments that happen when you hop into a game together.",
+      "There is always something new to try, which keeps this shelf changing every week."
+    ]
+  }
+]

@@ -1,0 +1,100 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  game: CollectionEntry<"games">;
+  headingLevel?: 2 | 3;
+}
+const { game, headingLevel = 3 } = Astro.props;
+const { id, data } = game;
+const Heading = `h${headingLevel}` as const;
+---
+
+<article class:list={["game", `g-${data.tag}`]} data-tag={data.tag}>
+  <div class="game-top">
+    <div class="game-badge" aria-hidden="true">
+      {data.name.charAt(0)}
+    </div>
+    <div>
+      <Heading class="name">{data.name}</Heading>
+      <small>{data.label}</small>
+    </div>
+  </div>
+  <div class="game-body">
+    <p>{data.blurb}</p>
+    <a href={`/games/${id}`}>
+      {data.name} Shorts<span class="visually-hidden"> and notes</span>
+    </a>
+  </div>
+</article>
+
+<style>
+  .game {
+    border: 2px solid var(--edge);
+    border-radius: 20px;
+    background: var(--surface);
+    box-shadow: 4px 4px 0 var(--edge);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow: hidden;
+    min-width: 0;
+    transition: transform 0.18s;
+  }
+  .game:hover {
+    transform: translateY(-4px) rotate(-0.6deg);
+  }
+  .game-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    border-bottom: 2px solid var(--edge);
+  }
+  .game-badge {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    border: 2px solid var(--edge);
+    display: grid;
+    place-items: center;
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 1.3rem;
+    background: var(--surface);
+    flex: none;
+  }
+  .name {
+    font-size: 1.2rem;
+    overflow-wrap: anywhere;
+  }
+  small {
+    display: block;
+    font-family: var(--f-note);
+    font-size: 0.8rem;
+    color: var(--ink2);
+  }
+  .game-body {
+    padding: 16px;
+    display: grid;
+    gap: 14px;
+    align-content: space-between;
+  }
+  .game-body p {
+    color: var(--ink2);
+    font-size: 0.97rem;
+  }
+  .game-body a {
+    font-weight: 800;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+  .g-cozy .game-top {
+    background: var(--t-sun);
+  }
+  .g-open .game-top {
+    background: var(--t-sky);
+  }
+  .g-roblox .game-top {
+    background: var(--t-mint);
+  }
+</style>

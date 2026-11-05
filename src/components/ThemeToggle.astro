@@ -1,0 +1,55 @@
+---
+// Label is switched by CSS from the current theme, so it is right on first paint without JS.
+---
+
+<button class="theme-btn" type="button" data-theme-toggle>
+  <span class="to-night">Night mode</span>
+  <span class="to-day">Day mode</span>
+</button>
+
+<style>
+  .theme-btn {
+    border: 2px solid var(--edge);
+    background: var(--surface);
+    border-radius: 999px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .to-day {
+    display: none;
+  }
+  :global(:root[data-theme="dark"]) .to-day {
+    display: inline;
+  }
+  :global(:root[data-theme="dark"]) .to-night {
+    display: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .to-day {
+      display: inline;
+    }
+    :global(:root:not([data-theme="light"])) .to-night {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const isDark = () =>
+    root.dataset.theme
+      ? root.dataset.theme === "dark"
+      : matchMedia("(prefers-color-scheme: dark)").matches;
+
+  document
+    .querySelector("[data-theme-toggle]")
+    ?.addEventListener("click", () => {
+      const next = isDark() ? "light" : "dark";
+      root.dataset.theme = next;
+      try {
+        localStorage.setItem("haejoy-theme", next);
+      } catch {}
+    });
+</script>

@@ -1,0 +1,91 @@
+---
+import { getCollection } from "astro:content";
+import GameCard from "./GameCard.astro";
+
+export interface Props {
+  headingLevel?: 2 | 3;
+}
+const { headingLevel = 3 } = Astro.props;
+
+const games = (await getCollection("games")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const filters = [
+  ["all", "All"],
+  ["cozy", "Cozy"],
+  ["open", "Open world"],
+  ["roblox", "Roblox"],
+];
+---
+
+<div data-game-shelf>
+  <!-- Chips need JS, so they stay hidden until the script runs -->
+  <div class="chips" role="group" aria-label="Filter games" hidden>
+    {filters.map(([key, label], i) => (
+      <button
+        class="chip"
+        type="button"
+        data-filter={key}
+        aria-pressed={i === 0 ? "true" : "false"}
+      >
+        {label}
+      </button>
+    ))}
+  </div>
+  <div class="games">
+    {games.map((g) => (
+      <GameCard game={g} headingLevel={headingLevel} />
+    ))}
+  </div>
+</div>
+
+<style>
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .chip {
+    border: 2px solid var(--edge);
+    background: var(--surface);
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-weight: 800;
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+  .chip[aria-pressed="true"] {
+    background: var(--sun);
+    color: var(--on-sun);
+  }
+  .games {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+    gap: 22px;
+    padding-bottom: 18px;
+  }
+</style>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>("[data-game-shelf]")
+    .forEach((shelf) => {
+      const chips = shelf.querySelector<HTMLElement>(".chips");
+      if (!chips) return;
+      chips.hidden = false;
+      chips.addEventListener("click", (e) => {
+        const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(
+          ".chip",
+        );
+        if (!btn) return;
+        const f = btn.dataset.filter;
+        chips
+          .querySelectorAll(".chip")
+          .forEach((c) => c.setAttribute("aria-pressed", String(c === btn)));
+        shelf.querySelectorAll<HTMLElement>(".game").forEach((g) => {
+          g.hidden = !(f === "all" || g.dataset.tag === f);
+        });
+      });
+    });
+</script>

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "sample-heartopia",
+    "sample": true,
+    "title": "Sample title: a slow evening in Heartopia",
+    "game": "heartopia",
+    "publishedAt": "2026-11-01"
+  },
+  {
+    "id": "sample-nte",
+    "sample": true,
+    "title": "Sample title: wandering the city in NTE",
+    "game": "nte",
+    "publishedAt": "2026-10-30"
+  },
+  {
+    "id": "sample-roblox",
+    "sample": true,
+    "title": "Sample title: my dream house in Roblox",
+    "game": "roblox",
+    "publishedAt": "2026-10-28"
+  },
+  {
+    "id": "sample-ananta",
+    "sample": true,
+    "title": "Sample title: Ananta first impressions",
+    "game": "ananta",
+    "publishedAt": "2026-10-25"
+  },
+  {
+    "id": "sample-sword-of-justice",
+    "sample": true,
+    "title": "Sample title: sightseeing in Sword of Justice",
+    "game": "sword-of-justice",
+    "publishedAt": "2026-10-23"
+  },
+  {
+    "id": "sample-petit-planet",
+    "sample": true,
+    "title": "Sample title: my first day on Petit Planet",
+    "game": "petit-planet",
+    "publishedAt": "2026-10-21"
+  }
+]

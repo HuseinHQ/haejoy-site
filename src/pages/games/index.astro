@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import GameShelf from "../../components/GameShelf.astro";
+import { subscribeUrl } from "../../lib/site";
+---
+
+<BaseLayout
+  title="Games"
+  description="Every game on the HAEJOY shelf: cozy life sims like Heartopia and Petit Planet, anime open worlds like NTE and Ananta, plus Roblox. Pick one to see its Shorts."
+>
+  <div class="wrap">
+    <Breadcrumbs items={[{ name: "Games", href: "/games" }]} />
+    <div class="sec-head">
+      <span class="eyebrow">the game shelf</span>
+      <h1>Worlds I keep coming back to</h1>
+      <p>
+        Cozy life sims, pretty open worlds, and a bit of Roblox with friends.
+        Pick a game to read what it's about and watch the Shorts I've made for
+        it.
+      </p>
+    </div>
+    <GameShelf headingLevel={2} />
+    <div class="cta-row">
+      <a class="btn primary" href={subscribeUrl} target="_blank" rel="noopener">
+        Subscribe on YouTube
+      </a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: clamp(2rem, 5.4vw, 3.2rem);
+  }
+  .cta-row {
+    margin-top: 24px;
+  }
+</style>

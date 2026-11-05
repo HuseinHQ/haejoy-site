@@ -1,0 +1,125 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { tones } from "../content.config";
+import { shortsUrl } from "../lib/site";
+
+export interface Props {
+  short: CollectionEntry<"shorts">;
+  gameName: string;
+  index: number;
+}
+const { short, gameName, index } = Astro.props;
+const { id, data } = short;
+const href = data.sample ? shortsUrl : `https://www.youtube.com/shorts/${id}`;
+const tone = tones[[1, 0, 2, 3, 4][index % 5]!]; // sun, sky, mint, coral, teal
+---
+
+<a class="short" href={href} target="_blank" rel="noopener">
+  <div class:list={["short-thumb", `c-${tone}`]}>
+    {data.sample ? (
+      <>
+        <span class="sample">sample</span>
+        <span class="short-glyph" aria-hidden="true">
+          {gameName.charAt(0)}
+        </span>
+      </>
+    ) : (
+      <Image
+        src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+        alt=""
+        width={480}
+        height={360}
+      />
+    )}
+    <span class="play" aria-hidden="true">
+      <svg viewBox="0 0 16 16">
+        <path d="M3 1.5v13l11-6.5z" fill="currentColor"></path>
+      </svg>
+    </span>
+  </div>
+  <div>
+    <h3 class="short-title">{data.title}</h3>
+    <p class="short-meta">{gameName}</p>
+  </div>
+</a>
+
+<style>
+  .short {
+    flex: 0 0 190px;
+    scroll-snap-align: start;
+    text-decoration: none;
+    display: grid;
+    gap: 12px;
+    align-content: start;
+    min-width: 0;
+  }
+  .short-thumb {
+    aspect-ratio: 9/16;
+    max-width: 100%;
+    border: 2px solid var(--edge);
+    border-radius: 20px;
+    box-shadow: 4px 4px 0 var(--edge);
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    transition: transform 0.18s;
+  }
+  .short:nth-child(odd) .short-thumb {
+    transform: rotate(-1.4deg);
+  }
+  .short:nth-child(even) .short-thumb {
+    transform: rotate(1.2deg);
+  }
+  .short:hover .short-thumb {
+    transform: rotate(0) translateY(-4px);
+  }
+  .short-thumb img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .short-glyph {
+    font-family: var(--f-display);
+    font-size: 3.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    opacity: 0.85;
+  }
+  .play {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--sun);
+    color: var(--on-sun);
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--edge);
+  }
+  .play svg {
+    width: 16px;
+    height: 16px;
+    margin-left: 2px;
+  }
+  .sample {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  }
+  .short-title {
+    font-family: var(--f-body);
+    font-weight: 800;
+    line-height: 1.3;
+    font-size: 0.98rem;
+  }
+  .short-meta {
+    font-size: 0.84rem;
+    color: var(--ink2);
+  }
+</style>

@@ -1,0 +1,81 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import JsonLd from "../components/JsonLd.astro";
+import Hero from "../components/Hero.astro";
+import ShortsShelf from "../components/ShortsShelf.astro";
+import About from "../components/About.astro";
+import GameShelf from "../components/GameShelf.astro";
+import CozyCorner from "../components/CozyCorner.astro";
+import Community from "../components/Community.astro";
+import Support from "../components/Support.astro";
+import Collab from "../components/Collab.astro";
+import { site } from "../lib/site";
+
+const home = new URL("/", Astro.site).href;
+const sameAs = (await getCollection("socials"))
+  .map((s) => s.data.url)
+  .filter(Boolean);
+const person = {
+  "@type": "Person",
+  "@id": `${home}#haejoy`,
+  name: site.name,
+  url: home,
+  description: site.description,
+  sameAs,
+};
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${home}#website`,
+      name: "HAEJOY",
+      url: home,
+      inLanguage: "en",
+    },
+    person,
+    {
+      "@type": "ProfilePage",
+      "@id": `${home}#profile`,
+      url: home,
+      name: "HAEJOY · Cozy Gaming Shorts",
+      isPartOf: { "@id": `${home}#website` },
+      mainEntity: { "@id": `${home}#haejoy` },
+    },
+  ],
+};
+---
+
+<BaseLayout description="Cozy gaming Shorts with an anime heart. Haejoy plays Heartopia, Petit Planet, NTE, Roblox and more, made for slow afternoons and right before bed.">
+  <JsonLd slot="head" data={jsonLd} />
+  <Hero />
+  <section class="band" id="shorts">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">the Shorts shelf</span>
+        <h2>Fresh off the shelf</h2>
+        <p>Swipe sideways. Each card opens the video on YouTube.</p>
+      </div>
+      <ShortsShelf />
+    </div>
+  </section>
+  <About />
+  <section class="band" id="games">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">the game shelf</span>
+        <h2>Worlds I keep coming back to</h2>
+        <p>Pick a mood, then jump into the Shorts for each game.</p>
+      </div>
+      <GameShelf />
+      <a class="btn small" href="/games">
+        All games
+      </a>
+    </div>
+  </section>
+  <CozyCorner />
+  <Community />
+  <Support />
+  <Collab />
+</BaseLayout>

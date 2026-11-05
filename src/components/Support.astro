@@ -1,0 +1,125 @@
+---
+import { getCollection } from "astro:content";
+import LinkCard from "./LinkCard.astro";
+
+const platforms = (await getCollection("support")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const uses = [
+  [
+    "New games to try",
+    "Funds for new releases and in-game passes to show on the channel.",
+  ],
+  ["Better recording gear", "A cleaner mic, smoother capture, nicer edits."],
+  ["More time to create", "More Shorts, and maybe longer cozy videos someday."],
+];
+---
+
+<section id="support">
+  <div class="wrap support">
+    <div class="jar">
+      <span class="eyebrow">the tip jar</span>
+      <h2>Support the channel</h2>
+      <p class="muted">
+        Watching, liking, and sharing already helps a lot. If you'd like to do a
+        bit more, a small tip goes straight back into the videos.
+      </p>
+      <ol>
+        {uses.map(([title, text]) => (
+          <li>
+            <b>{title}</b>
+            <span>{text}</span>
+          </li>
+        ))}
+      </ol>
+      <p class="jar-note">
+        Can't tip? Subscribing is free and just as appreciated.
+      </p>
+    </div>
+    <div class="pick">
+      <div class="sec-head">
+        <h3>Pick where to tip</h3>
+        <p>Local options for Indonesia, plus a couple that work worldwide.</p>
+      </div>
+      <div class="links">
+        {platforms.map((p) => (
+          <LinkCard link={p} />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .support {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 36px;
+    align-items: start;
+  }
+  .jar {
+    border: 2px solid var(--edge);
+    border-radius: 22px;
+    background: var(--surface);
+    box-shadow: 4px 4px 0 var(--edge);
+    padding: 22px;
+    display: grid;
+    gap: 14px;
+    min-width: 0;
+  }
+  .jar .eyebrow {
+    margin: 0;
+  }
+  .muted {
+    color: var(--ink2);
+  }
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 12px;
+    counter-reset: jar;
+  }
+  li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 12px;
+    align-items: start;
+    counter-increment: jar;
+  }
+  li::before {
+    content: counter(jar);
+    grid-row: span 2;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid var(--edge);
+    background: var(--sun);
+    color: var(--on-sun);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+  }
+  li span {
+    color: var(--ink2);
+    font-size: 0.95rem;
+  }
+  .jar-note {
+    font-family: var(--f-note);
+    font-size: 0.9rem;
+    color: var(--ink2);
+  }
+  .pick {
+    min-width: 0;
+  }
+  .pick .sec-head {
+    margin-bottom: 22px;
+  }
+  @media (max-width: 860px) {
+    .support {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

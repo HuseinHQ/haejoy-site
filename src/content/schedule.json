@@ -1,0 +1,9 @@
+[
+  { "id": "mon", "label": "Rest", "upload": false },
+  { "id": "tue", "label": "Short", "upload": true },
+  { "id": "wed", "label": "Rest", "upload": false },
+  { "id": "thu", "label": "Short", "upload": true },
+  { "id": "fri", "label": "Rest", "upload": false },
+  { "id": "sat", "label": "Short", "upload": true },
+  { "id": "sun", "label": "Chill", "upload": false }
+]

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://haejoy.my.id/sitemap-index.xml

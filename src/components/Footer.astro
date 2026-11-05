@@ -1,0 +1,154 @@
+---
+import { site } from "../lib/site";
+
+const lines = [
+  "meow~",
+  "purr purr",
+  "drink some water!",
+  "take a little break",
+];
+---
+
+<footer>
+  <div class="wrap">
+    <div>
+      <b class="brand">
+        HAE<span>JOY</span>
+      </b>
+      <p>
+        Thanks for stopping by. Hope your day is as warm as a fresh cup of tea.
+      </p>
+      <nav aria-label="Footer">
+        <a href="/games">Games</a>
+        <a href="/collab">Collab &amp; media kit</a>
+        <a href={site.youtube} target="_blank" rel="noopener">
+          YouTube
+        </a>
+      </nav>
+    </div>
+    <div class="cat-box">
+      <span class="cat-say" role="status" data-cat-say></span>
+      <button
+        class="cat"
+        type="button"
+        aria-label="Pet the cat"
+        data-cat
+        data-lines={JSON.stringify(lines)}
+      >
+        <svg viewBox="0 0 90 70" aria-hidden="true">
+          <g
+            stroke="var(--edge)"
+            stroke-width="3"
+            stroke-linejoin="round"
+            fill="var(--sun)"
+          >
+            <path d="M14 30 L14 6 L34 20 Z"></path>
+            <path d="M76 30 L76 6 L56 20 Z"></path>
+            <ellipse cx="45" cy="44" rx="34" ry="24"></ellipse>
+          </g>
+          <g fill="var(--on-sun)">
+            <ellipse cx="32" cy="42" rx="3.4" ry="4.6"></ellipse>
+            <ellipse cx="58" cy="42" rx="3.4" ry="4.6"></ellipse>
+          </g>
+          <path
+            d="M40 52 Q45 57 50 52"
+            fill="none"
+            stroke="var(--on-sun)"
+            stroke-width="3"
+            stroke-linecap="round"
+          ></path>
+          <path d="M43 47 h4 l-2 2.5 z" fill="var(--on-sun)"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-top: 2px solid var(--edge);
+    background: var(--bg2);
+  }
+  footer .wrap {
+    padding-block: 36px 44px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: end;
+    justify-content: space-between;
+  }
+  footer p {
+    color: var(--ink2);
+    max-width: 44ch;
+  }
+  .brand {
+    font-family: var(--f-display);
+    font-size: 1.3rem;
+  }
+  .brand span {
+    color: var(--accent);
+  }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin-top: 12px;
+    font-weight: 700;
+  }
+  nav a {
+    text-underline-offset: 4px;
+  }
+  .cat-box {
+    position: relative;
+    margin-left: auto; /* stays right when the footer wraps, so the bubble has room */
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+  }
+  .cat {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 86px;
+  }
+  .cat svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .cat-say {
+    position: absolute;
+    right: 92px;
+    bottom: 54px;
+    background: var(--surface);
+    border: 2px solid var(--edge);
+    border-radius: 14px;
+    padding: 6px 12px;
+    font-family: var(--f-note);
+    font-size: 0.88rem;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: 0.2s;
+    pointer-events: none;
+  }
+  .cat-say.on {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+
+<script>
+  const cat = document.querySelector<HTMLButtonElement>("[data-cat]");
+  const say = document.querySelector<HTMLElement>("[data-cat-say]");
+  let timer: number | undefined;
+  cat?.addEventListener("click", () => {
+    if (!say) return;
+    const lines: string[] = JSON.parse(cat.dataset.lines ?? "[]");
+    say.textContent = lines[Math.floor(Math.random() * lines.length)] ?? "";
+    say.classList.add("on");
+    clearTimeout(timer);
+    timer = window.setTimeout(() => say.classList.remove("on"), 1800);
+  });
+</script>

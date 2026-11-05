@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Page not found"
+  description="This page wandered off for a tea break. Head back to the HAEJOY home page for cozy gaming Shorts, the game shelf, and ways to say hi or support the channel."
+  noindex
+>
+  <section>
+    <div class="wrap lost">
+      <span class="eyebrow">404</span>
+      <h1>This page wandered off for a tea break</h1>
+      <p>
+        The link might be old, or the page moved. Here are a few cozy places to
+        go instead.
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href="/">
+          Back home
+        </a>
+        <a class="btn" href="/games">
+          Browse games
+        </a>
+        <a class="btn" href="/#shorts">
+          Watch Shorts
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lost {
+    min-height: 60vh;
+    display: grid;
+    align-content: center;
+    gap: 16px;
+  }
+  h1 {
+    font-size: clamp(2rem, 5.6vw, 3.4rem);
+    max-width: 18ch;
+  }
+  p {
+    color: var(--ink2);
+    max-width: 48ch;
+  }
+  .cta-row {
+    margin-top: 8px;
+  }
+</style>

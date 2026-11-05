@@ -1,0 +1,305 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import { YouTube } from "@astro-community/astro-embed-youtube";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import JsonLd from "../../components/JsonLd.astro";
+import ShortsShelf from "../../components/ShortsShelf.astro";
+import { site, subscribeUrl } from "../../lib/site";
+
+export async function getStaticPaths() {
+  const games = (await getCollection("games")).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
+  return games.map((game) => ({
+    params: { slug: game.id },
+    props: { game, games },
+  }));
+}
+
+interface Props {
+  game: CollectionEntry<"games">;
+  games: CollectionEntry<"games">[];
+}
+const { game, games } = Astro.props;
+const { id, data } = game;
+
+const pageUrl = new URL(`/games/${id}`, Astro.site).href;
+const shorts = (
+  await getCollection("shorts", (s) => s.data.game.id === id)
+).sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+const realShorts = shorts.filter((s) => !s.data.sample);
+const moreUrl =
+  data.playlistUrl ??
+  `${site.youtube}/search?query=${encodeURIComponent(data.name)}`;
+const others = games.filter((g) => g.id !== id);
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    name: data.name,
+    url: pageUrl,
+    description: data.blurb,
+    ...(data.developer && {
+      author: { "@type": "Organization", name: data.developer },
+    }),
+    ...(data.officialUrl && { sameAs: [data.officialUrl] }),
+  },
+  ...(realShorts.length
+    ? [
+        {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: `${data.name} Shorts by Haejoy`,
+          itemListElement: realShorts.map((s, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "VideoObject",
+              name: s.data.title,
+              description:
+                s.data.description ??
+                `${s.data.title} – a ${data.name} Short by Haejoy.`,
+              thumbnailUrl: `https://i.ytimg.com/vi/${s.id}/hqdefault.jpg`,
+              uploadDate: s.data.publishedAt.toISOString(),
+              embedUrl: `https://www.youtube.com/embed/${s.id}`,
+              contentUrl: `https://www.youtube.com/shorts/${s.id}`,
+            },
+          })),
+        },
+      ]
+    : []),
+];
+---
+
+<BaseLayout
+  title={`${data.name} Shorts`}
+  description={data.seoDescription}
+  image={`/og/games/${id}.png`}
+>
+  <JsonLd slot="head" data={jsonLd} />
+  <section class:list={["game-hero", `g-${data.tag}`]}>
+    <div class="wrap">
+      <Breadcrumbs
+        items={[
+          { name: "Games", href: "/games" },
+          { name: data.name, href: `/games/${id}` },
+        ]}
+      />
+      <span class="label">{data.label}</span>
+      <h1>{data.name}</h1>
+      <p class="lede">{data.blurb}</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap about-game">
+      <div class="copy">
+        <h2>About {data.name}</h2>
+        {data.description.map((p) => (
+          <p>{p}</p>
+        ))}
+      </div>
+      <aside class="facts" aria-label="Game details">
+        <dl>
+          <dt>Type</dt>
+          <dd>{data.label}</dd>
+          {data.developer && (
+            <>
+              <dt>Developer</dt>
+              <dd>{data.developer}</dd>
+            </>
+          )}
+        </dl>
+        {data.officialUrl && (
+          <a href={data.officialUrl} target="_blank" rel="noopener">
+            Official site
+          </a>
+        )}
+      </aside>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">from the channel</span>
+        <h2>{data.name} Shorts</h2>
+        <p>
+          {realShorts.length
+            ? "Tap a video to play it right here."
+            : `${data.name} Shorts will show up here as they're posted. Until then, find them on the channel.`}
+        </p>
+      </div>
+      {realShorts.length > 0 && (
+        <div class="embeds">
+          {realShorts.map((s) => (
+            <YouTube
+              id={s.id}
+              title={s.data.title}
+              playlabel={`Play: ${s.data.title}`}
+            />
+          ))}
+        </div>
+      )}
+      {realShorts.length === 0 && shorts.length > 0 && (
+        <ShortsShelf game={id} />
+      )}
+      <div class="cta-row">
+        <a class="btn primary" href={moreUrl} target="_blank" rel="noopener">
+          {data.playlistUrl
+            ? `${data.name} playlist`
+            : `Find ${data.name} videos`}
+        </a>
+        <a class="btn" href={subscribeUrl} target="_blank" rel="noopener">
+          Subscribe
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2 class="more-title">More from the shelf</h2>
+      <ul class="others">
+        {others.map((g) => (
+          <li>
+            <a href={`/games/${g.id}`}>{g.data.name}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .game-hero {
+    border-bottom: 2px solid var(--edge);
+  }
+  .game-hero .wrap {
+    padding-block: 40px 48px;
+  }
+  .g-cozy {
+    background: var(--t-sun);
+  }
+  .g-open {
+    background: var(--t-sky);
+  }
+  .g-roblox {
+    background: var(--t-mint);
+  }
+  .label {
+    display: inline-block;
+    font-family: var(--f-note);
+    font-size: 0.9rem;
+    border: 2px solid var(--edge);
+    background: var(--surface);
+    border-radius: 999px;
+    padding: 2px 12px;
+    margin-bottom: 12px;
+    transform: rotate(-1.5deg);
+  }
+  h1 {
+    font-size: clamp(2.3rem, 6.4vw, 4rem);
+    margin-bottom: 12px;
+    overflow-wrap: anywhere;
+  }
+  .lede {
+    font-size: 1.15rem;
+    max-width: 52ch;
+  }
+  .about-game {
+    display: grid;
+    grid-template-columns: 1.5fr 0.8fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .copy {
+    display: grid;
+    gap: 16px;
+    min-width: 0;
+  }
+  .copy p {
+    max-width: 62ch;
+  }
+  .facts {
+    border: 2px solid var(--edge);
+    border-radius: 18px;
+    background: var(--surface);
+    box-shadow: 4px 4px 0 var(--edge);
+    padding: 18px;
+    display: grid;
+    gap: 12px;
+    min-width: 0;
+  }
+  dl {
+    margin: 0;
+    display: grid;
+    gap: 2px 0;
+  }
+  dt {
+    font-family: var(--f-note);
+    font-size: 0.82rem;
+    color: var(--ink2);
+  }
+  dd {
+    margin: 0 0 8px;
+    font-family: var(--f-display);
+    font-weight: 600;
+  }
+  .facts a {
+    font-weight: 800;
+    text-underline-offset: 4px;
+  }
+  .embeds {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+    gap: 22px;
+    margin-bottom: 24px;
+  }
+  .embeds :global(lite-youtube) {
+    max-width: none;
+    border: 2px solid var(--edge);
+    border-radius: 20px;
+    box-shadow: 4px 4px 0 var(--edge);
+    overflow: hidden;
+    background-size: cover;
+  }
+  .embeds :global(lite-youtube::after) {
+    padding-bottom: calc(100% * 16 / 9); /* vertical Shorts */
+  }
+  .cta-row {
+    margin-top: 16px;
+  }
+  .more-title {
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+  }
+  .others {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .others a {
+    display: inline-block;
+    border: 2px solid var(--edge);
+    background: var(--surface);
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 3px 0 var(--edge);
+  }
+  .others a:hover {
+    background: var(--t-sun);
+  }
+  @media (max-width: 820px) {
+    .about-game {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

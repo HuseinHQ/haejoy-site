@@ -1,0 +1,121 @@
+---
+import { site, subscribeUrl } from "../lib/site";
+
+const tiktokHandle = site.tiktok
+  ? "@" + site.tiktok.replace(/\/+$/, "").split(/[@/]/).pop()
+  : "";
+const facts = [
+  ["motto", "Make stuff even if it's bad"],
+  ["format", "YouTube Shorts"],
+  ["vibe", "Cozy, chill, friendly"],
+  ...(tiktokHandle ? [["also on", `TikTok ${tiktokHandle}`]] : []),
+];
+---
+
+<section id="about">
+  <div class="wrap about">
+    <div class="about-copy">
+      <span class="eyebrow">at the desk</span>
+      <h2>Hi, I'm Haejoy</h2>
+      <p>
+        I make short videos about games that feel like a warm blanket:
+        decorating tiny houses, wandering around pretty open worlds, and jumping
+        on new anime-style releases the day they drop.
+      </p>
+      <p>
+        They're not perfect, and that's on purpose. Finish it, share it, make
+        the next one.
+      </p>
+      <div class="cta-row">
+        <a
+          class="btn primary small"
+          href={subscribeUrl}
+          target="_blank"
+          rel="noopener"
+        >
+          Hang out with me
+        </a>
+      </div>
+    </div>
+    <ul class="facts">
+      {facts.map(([label, value]) => (
+        <li class="fact">
+          <small>{label}</small>
+          <b>{value}</b>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .about-copy {
+    display: grid;
+    gap: 16px;
+    min-width: 0;
+  }
+  .about-copy p {
+    max-width: 52ch;
+  }
+  .about-copy .cta-row {
+    margin-top: 6px;
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .fact {
+    border: 2px solid var(--edge);
+    border-radius: 16px;
+    padding: 16px 16px 18px;
+    background: var(--surface);
+    box-shadow: 4px 4px 0 var(--edge);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .fact:nth-child(1) {
+    background: var(--t-sun);
+    transform: rotate(-1.5deg);
+  }
+  .fact:nth-child(2) {
+    background: var(--t-sky);
+    transform: rotate(1.2deg);
+  }
+  .fact:nth-child(3) {
+    background: var(--t-mint);
+    transform: rotate(1deg);
+  }
+  .fact:nth-child(4) {
+    background: var(--t-coral);
+    transform: rotate(-1deg);
+  }
+  .fact small {
+    display: block;
+    font-family: var(--f-note);
+    color: var(--ink2);
+    font-size: 0.82rem;
+    margin-bottom: 4px;
+  }
+  .fact b {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 1.25;
+  }
+  @media (max-width: 820px) {
+    .about {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

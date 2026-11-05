@@ -1,0 +1,85 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  link: CollectionEntry<"socials"> | CollectionEntry<"support">;
+}
+const { name, description, url, tag, tone } = Astro.props.link.data;
+---
+
+{url ? (
+  <a
+    class:list={["link-card", `c-${tone}`]}
+    href={url}
+    target="_blank"
+    rel="noopener"
+  >
+    <span class="link-top">
+      <b>{name}</b>
+      {tag && <span class="tag">{tag}</span>}
+    </span>
+    <span class="desc">{description}</span>
+  </a>
+) : (
+  <div class="link-card off">
+    <span class="link-top">
+      <b>{name}</b>
+      <span class="tag">Coming soon</span>
+    </span>
+    <span class="desc">{description}</span>
+  </div>
+)}
+
+<style>
+  .link-card {
+    border: 2px solid var(--edge);
+    border-radius: 18px;
+    padding: 18px;
+    display: grid;
+    gap: 6px;
+    align-content: start;
+    text-decoration: none;
+    box-shadow: 4px 4px 0 var(--edge);
+    transition: transform 0.15s;
+    min-width: 0;
+  }
+  a.link-card:hover {
+    transform: translateY(-3px);
+  }
+  .link-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  b {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+  }
+  .desc {
+    color: var(--ink2);
+    font-size: 0.92rem;
+    overflow-wrap: anywhere;
+  }
+  .tag {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    border: 1.5px solid var(--ink2);
+    border-radius: 999px;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+  /* "Coming soon": dashed + flat instead of faded, so text keeps full contrast */
+  .off {
+    background: var(--surface);
+    border-style: dashed;
+    box-shadow: none;
+  }
+  .off b {
+    color: var(--ink2);
+  }
+</style>

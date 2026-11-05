@@ -1,0 +1,90 @@
+---
+import ThemeToggle from "./ThemeToggle.astro";
+
+const links = [
+  ["/#shorts", "Shorts"],
+  ["/#about", "About"],
+  ["/#games", "Games"],
+  ["/#support", "Support"],
+  ["/#collab", "Collab"],
+];
+---
+
+<a class="skip-link" href="#main">
+  Skip to content
+</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="HAEJOY home">
+      HAE<span>JOY</span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      {links.map(([href, label]) => (
+        <a href={href}>{label}</a>
+      ))}
+    </nav>
+    <ThemeToggle />
+  </div>
+</header>
+
+<style>
+  .skip-link {
+    position: absolute;
+    left: 16px;
+    top: -60px;
+    z-index: 50;
+    background: var(--sun);
+    color: var(--on-sun);
+    border: 2px solid var(--edge);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+  .skip-link:focus {
+    top: 12px;
+  }
+  .nav {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    background: var(--nav);
+    border-bottom: 2px solid var(--edge);
+  }
+  .nav .wrap {
+    padding-block: 10px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .brand {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 1.35rem;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    margin-right: auto;
+  }
+  .brand span {
+    color: var(--accent);
+  }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+  }
+  .nav-links a {
+    padding: 6px 12px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .nav-links a:hover {
+    background: var(--bg2);
+  }
+  @media (max-width: 820px) {
+    .nav-links {
+      display: none;
+    }
+  }
+</style>

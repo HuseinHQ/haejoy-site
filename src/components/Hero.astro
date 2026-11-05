@@ -1,0 +1,76 @@
+---
+import Mascot from "./Mascot.astro";
+import { site, subscribeUrl } from "../lib/site";
+---
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">{site.tagline.toLowerCase()}</span>
+      <h1>
+        Come in, <em>grab some tea</em>, let's play something chill.
+      </h1>
+      <p class="lede">
+        Short videos about the cozy and open-world games I love. Made to be
+        watched on a slow afternoon or right before bed.
+      </p>
+      <div class="cta-row">
+        <a
+          class="btn primary"
+          href={subscribeUrl}
+          target="_blank"
+          rel="noopener"
+        >
+          Subscribe on YouTube
+        </a>
+        <a class="btn" href="#shorts">
+          Watch Shorts
+        </a>
+      </div>
+      <p class="motto">{site.motto}</p>
+    </div>
+    <Mascot />
+  </div>
+</section>
+
+<style>
+  .hero .wrap {
+    padding-block: 56px 72px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+  }
+  h1 {
+    font-size: clamp(2.3rem, 6.4vw, 4.2rem);
+    margin-bottom: 18px;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
+    background: linear-gradient(transparent 62%, var(--t-sun) 62%);
+    padding-inline: 4px;
+    border-radius: 4px;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--ink2);
+    max-width: 46ch;
+    margin-bottom: 26px;
+  }
+  .motto {
+    font-family: var(--f-note);
+    font-size: 0.98rem;
+    display: inline-flex;
+    background: var(--t-sky);
+    padding: 8px 14px;
+    border-radius: 12px;
+    transform: rotate(-1.5deg);
+  }
+  @media (max-width: 820px) {
+    .hero .wrap {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+</style>

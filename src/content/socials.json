@@ -1,0 +1,42 @@
+[
+  {
+    "id": "youtube",
+    "order": 1,
+    "name": "YouTube",
+    "description": "@haejoy · new Shorts every week",
+    "url": "https://www.youtube.com/@haejoy",
+    "tone": "sun"
+  },
+  {
+    "id": "tiktok",
+    "order": 2,
+    "name": "TikTok",
+    "description": "@haejoy · clips and behind the scenes",
+    "url": "https://www.tiktok.com/@haejoy",
+    "tone": "sky"
+  },
+  {
+    "id": "instagram",
+    "order": 3,
+    "name": "Instagram",
+    "description": "Screenshots and cozy setups",
+    "url": "https://www.instagram.com/haejoy_o",
+    "tone": "coral"
+  },
+  {
+    "id": "discord",
+    "order": 4,
+    "name": "Discord",
+    "description": "A chill server to hang out and play together",
+    "url": "",
+    "tone": "mint"
+  },
+  {
+    "id": "x",
+    "order": 5,
+    "name": "X / Twitter",
+    "description": "Quick updates and game news",
+    "url": "",
+    "tone": "teal"
+  }
+]
