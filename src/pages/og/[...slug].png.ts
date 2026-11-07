@@ -1,6 +1,7 @@
 // 1200x630 Open Graph images, rendered at build time: /og/default.png + /og/games/<id>.png
 import type { APIRoute, GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
+import { FONT_BODY, FONT_DISPLAY } from "astro:env/server";
 import { readFile } from "node:fs/promises";
 import satori from "satori";
 import sharp from "sharp";
@@ -34,8 +35,11 @@ export const getStaticPaths = (async () => {
   ];
 }) satisfies GetStaticPaths;
 
-const font = (pkg: string, file: string) =>
-  readFile(`node_modules/@fontsource/${pkg}/files/${file}`);
+// Satori needs .woff (not woff2); every font in src/fonts.ts ships a 700.
+const font = (key: string) =>
+  readFile(
+    `node_modules/@fontsource/${key}/files/${key}-latin-700-normal.woff`,
+  );
 
 // The mascot SVG is taken straight from Mascot.astro with light-theme token values filled in.
 let mascotCache: Promise<string> | undefined;
@@ -79,9 +83,9 @@ export const GET: APIRoute = async ({ props }) => {
     title: string;
     bg: string;
   };
-  const [dyna, nunito, mascot] = await Promise.all([
-    font("dynapuff", "dynapuff-latin-700-normal.woff"),
-    font("nunito", "nunito-latin-800-normal.woff"),
+  const [display, body, mascot] = await Promise.all([
+    font(FONT_DISPLAY),
+    font(FONT_BODY),
     (mascotCache ??= mascotPng()),
   ]);
   const ink = "#132F47";
@@ -95,7 +99,7 @@ export const GET: APIRoute = async ({ props }) => {
       display: "flex",
       background: bg,
       padding: 40,
-      fontFamily: "Nunito",
+      fontFamily: "Body",
       color: ink,
     },
     h(
@@ -135,7 +139,7 @@ export const GET: APIRoute = async ({ props }) => {
             h(
               "div",
               {
-                fontFamily: "DynaPuff",
+                fontFamily: "Display",
                 fontSize: title.length > 30 ? 64 : 84,
                 lineHeight: 1.1,
               },
@@ -147,7 +151,7 @@ export const GET: APIRoute = async ({ props }) => {
               [
                 h(
                   "div",
-                  { display: "flex", fontFamily: "DynaPuff", fontSize: 44 },
+                  { display: "flex", fontFamily: "Display", fontSize: 44 },
                   [
                     h("span", {}, "HAE"),
                     h("span", { color: "#1679B0" }, "JOY"),
@@ -182,8 +186,8 @@ export const GET: APIRoute = async ({ props }) => {
     width: 1200,
     height: 630,
     fonts: [
-      { name: "DynaPuff", data: dyna, weight: 700, style: "normal" },
-      { name: "Nunito", data: nunito, weight: 800, style: "normal" },
+      { name: "Display", data: display, weight: 700, style: "normal" },
+      { name: "Body", data: body, weight: 700, style: "normal" },
     ],
   });
   const png = await sharp(Buffer.from(svg)).png().toBuffer();

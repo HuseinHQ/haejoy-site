@@ -5,7 +5,7 @@ Static site built with **Astro**, no backend. Full spec: `HANDOVER.md`. Visual r
 
 ## Rules
 - Read `HANDOVER.md` before starting any task. It is the source of truth for scope, stack, and SEO.
-- Match the prototype's look: sky-blue + sunny-yellow palette, chunky 2px outlines, offset "sticker" shadows, DynaPuff / Nunito / Shantell Sans. Reuse the CSS tokens from the prototype `:root` blocks, including the dark theme.
+- Match the prototype's look: sky-blue + sunny-yellow palette, chunky 2px outlines, offset "sticker" shadows, clean fonts picked via `FONT_DISPLAY` / `FONT_BODY` in `.env` (choices in `src/fonts.ts`, see `.env.example`). Reuse the CSS tokens from the prototype `:root` blocks, including the dark theme.
 - All site copy is **English**.
 - Static output only (`output: "static"`). No server endpoints, no database, no client-side framework unless a task truly needs one. Use plain `<script>` in `.astro` components for interactivity.
 - Content lives in `src/content/` (JSON) and is typed with Zod in `src/content.config.ts`. Never hard-code games, Shorts, links, or schedule in components.

@@ -4,34 +4,37 @@ import SEO, { type Props as SEOProps } from "../components/SEO.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Sparkles from "../components/Sparkles.astro";
-import dynapuff600 from "@fontsource/dynapuff/files/dynapuff-latin-600-normal.woff2?url";
-import nunito400 from "@fontsource/nunito/files/nunito-latin-400-normal.woff2?url";
+import { FONT_BODY, FONT_DISPLAY } from "astro:env/server";
+import { fonts } from "../fonts";
+
+const files = import.meta.glob<string>(
+  "/node_modules/@fontsource/*/files/*-latin-{400,700}-normal.woff2",
+  { query: "?url", import: "default", eager: true },
+);
+const file = (key: string, weight: number) =>
+  files[
+    `/node_modules/@fontsource/${key}/files/${key}-latin-${weight}-normal.woff2`
+  ]!;
+// Headings use display 700, body text uses body 400.
+const preloads = [file(FONT_DISPLAY, 700), file(FONT_BODY, 400)];
+const stack = (key: keyof typeof fonts) =>
+  `"${fonts[key]}", "Segoe UI", system-ui, sans-serif`;
+const fontVars = `--f-display: ${stack(FONT_DISPLAY as keyof typeof fonts)}; --f-body: ${stack(FONT_BODY as keyof typeof fonts)}; --f-note: var(--f-body);`;
 
 export type Props = SEOProps;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" style={fontVars}>
   <head>
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <link
-      rel="preload"
-      href={dynapuff600}
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href={nunito400}
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    {preloads.map((href) => (
+      <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />
+    ))}
     <SEO {...Astro.props} />
     <script is:inline>
       // Runs before paint: apply the saved theme (no flash) and keep theme-color in sync with manual toggles.

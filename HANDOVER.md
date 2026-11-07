@@ -32,7 +32,7 @@ Games currently featured: Heartopia, Petit Planet, Loftia, NTE (Neverness to Eve
 | Language | **TypeScript** (`strict` tsconfig preset) | Typed content + components |
 | Styling | **Plain CSS** with custom properties, ported from the prototype. Global `src/styles/tokens.css` + `global.css`, component styles scoped in `.astro` files | The prototype is already token-based, so porting is 1:1 with no extra build layer. *(Tailwind v4 via `@tailwindcss/vite` is acceptable if the owner prefers, but map the same tokens into `@theme`.)* |
 | Content | **Astro Content Collections** (`src/content.config.ts`, `file()` loader, Zod schemas) | Owner edits JSON, not components |
-| Fonts | **Fontsource** self-hosted: `@fontsource/dynapuff`, `@fontsource/nunito`, `@fontsource/shantell-sans` (or Astro's built-in Fonts API if stable in the installed version) | No third-party font request, faster LCP, no layout shift |
+| Fonts | **Fontsource** self-hosted: `@fontsource/nunito` only (DynaPuff / Shantell Sans dropped: client wants clean type) (or Astro's built-in Fonts API if stable in the installed version) | No third-party font request, faster LCP, no layout shift |
 | Images | `astro:assets` `<Image />` / `<Picture />` (Sharp) | AVIF/WebP, width/height set, lazy by default |
 | YouTube embeds | `@astro-community/astro-embed-youtube` (lite-youtube facade) | Real player only loads on click, so embeds don't hurt performance |
 | Interactivity | Vanilla `<script>` inside components (filter chips, theme toggle, "play next" picker, copy email, sparkles canvas, cat easter egg) | No React/Vue needed |

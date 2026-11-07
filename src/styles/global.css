@@ -1,10 +1,28 @@
-/* Self-hosted fonts (Latin subset, only the weights the design uses) */
-@import "@fontsource/dynapuff/latin-600.css";
-@import "@fontsource/dynapuff/latin-700.css";
+/* Self-hosted fonts for every FONT_DISPLAY / FONT_BODY choice (src/fonts.ts).
+   @font-face only downloads a file when its family is used, so unused ones cost nothing. */
 @import "@fontsource/nunito/latin-400.css";
+@import "@fontsource/nunito/latin-600.css";
 @import "@fontsource/nunito/latin-700.css";
 @import "@fontsource/nunito/latin-800.css";
-@import "@fontsource/shantell-sans/latin-400.css";
+@import "@fontsource/fredoka/latin-400.css";
+@import "@fontsource/fredoka/latin-600.css";
+@import "@fontsource/fredoka/latin-700.css";
+@import "@fontsource/plus-jakarta-sans/latin-400.css";
+@import "@fontsource/plus-jakarta-sans/latin-600.css";
+@import "@fontsource/plus-jakarta-sans/latin-700.css";
+@import "@fontsource/plus-jakarta-sans/latin-800.css";
+@import "@fontsource/outfit/latin-400.css";
+@import "@fontsource/outfit/latin-600.css";
+@import "@fontsource/outfit/latin-700.css";
+@import "@fontsource/outfit/latin-800.css";
+@import "@fontsource/manrope/latin-400.css";
+@import "@fontsource/manrope/latin-600.css";
+@import "@fontsource/manrope/latin-700.css";
+@import "@fontsource/manrope/latin-800.css";
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+@import "@fontsource/inter/latin-800.css";
 @import "./tokens.css";
 
 /* Base */
@@ -39,7 +57,7 @@ h1,
 h2,
 h3 {
   font-family: var(--f-display);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.15;
   margin: 0;
   text-wrap: balance;
